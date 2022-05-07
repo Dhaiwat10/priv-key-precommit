@@ -1,6 +1,6 @@
 {
   "name": "priv-key-precommit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "dev": "ncc build ./index.ts -w -o dist/",
@@ -30,6 +30,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "chalk": "^5.0.1",
     "ethers": "^5.6.5"
   }
 }
