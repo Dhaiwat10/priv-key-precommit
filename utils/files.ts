@@ -102,3 +102,9 @@ export const checkForQuotes = (token: Token): Token => {
   }
   return token;
 };
+
+export const getIgnoreListFromGitignore = (): string[] => {
+  const gitignore = fs.readFileSync('.gitignore', 'utf8');
+  const lines = gitignore.split('\n');
+  return lines;
+};
