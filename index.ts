@@ -1,18 +1,17 @@
 #!/usr/bin/env node
 
 import { checkIfPrivKey } from './utils/crypto';
-import { getAllFiles, getTokensFromFile, Token } from './utils/files';
+import {
+  getAllFiles,
+  getIgnoreListFromGitignore,
+  getTokensFromFile,
+  Token,
+} from './utils/files';
 import chalk from 'chalk';
 
 const run = () => {
-  const files = getAllFiles('./', [
-    'dist',
-    'package.json',
-    'index.ts',
-    'utils',
-    'readme.md',
-    'tsconfig.json',
-  ]);
+  const ignoreList = getIgnoreListFromGitignore();
+  const files = getAllFiles('./', [...ignoreList]);
   const tokens: Token[] = [];
   files.forEach((file) => {
     tokens.push(...getTokensFromFile(file));
