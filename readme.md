@@ -1,6 +1,6 @@
 # priv-key-precommit
 
-A simple precommit hook that checks for the presence of a private key in your codebase.
+A simple precommit hook that checks for the presence of an Ethereum private key in your codebase.
 
 ## Usage
 
