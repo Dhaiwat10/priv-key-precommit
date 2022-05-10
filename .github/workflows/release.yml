@@ -24,7 +24,7 @@ jobs:
         run: yarn install && yarn release
   publish:
     name: Publish
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' )
     steps:
