@@ -26,7 +26,7 @@ const run = () => {
   if (vulnFiles.length > 0) {
     console.log(
       chalk.red(
-        `🚨 Found ${vulnFiles.length} file(s) containing private keys. Aborting commit.`
+        `🚨 Found ${vulnFiles.length} instance(s) of private keys. Aborting commit.`
       )
     );
     vulnFiles.forEach((file) => console.log(chalk(`=> ${file}`)));
