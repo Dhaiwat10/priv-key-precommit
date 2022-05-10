@@ -1,6 +1,6 @@
 {
   "name": "priv-key-precommit",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "",
   "scripts": {
     "dev": "ncc build ./index.ts -w -o dist/",
