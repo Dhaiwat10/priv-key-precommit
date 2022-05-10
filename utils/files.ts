@@ -47,6 +47,58 @@ export const getTokensFromFile = (file: string): Token[] => {
       tokens.push({ fileName: file, content: line });
     }
   });
+
+  tokens.forEach((token, idx) => {
+    if (token.content.includes('=')) {
+      const newTokens = splitEnv(token);
+      delete tokens[idx];
+      tokens.push(...newTokens);
+    }
+  });
+
+  tokens.forEach((token, idx) => {
+    const newToken = checkForQuotes(token);
+    if (newToken.content !== token.content) {
+      delete tokens[idx];
+      tokens.push(newToken);
+    }
+  });
+
+  // todo: trim any whitespace from token contents
+
   const filteredTokens = tokens.filter((token) => token.content.length === 64);
   return filteredTokens;
+};
+
+// runs the check for the pattern found in env files eg. FIELD_NAME=VALUE
+export const splitEnv: (token: Token) => Token[] = (token) => {
+  const split = token.content.split('=');
+  return [
+    { fileName: token.fileName, content: split[0] },
+    { fileName: token.fileName, content: split[1] },
+  ];
+};
+
+export const checkForQuotes = (token: Token): Token => {
+  if (!token.content.includes('"') && !token.content.includes("'")) {
+    return token;
+  }
+  let newContent = '';
+  let finalContent;
+  if (token.content.includes('"')) {
+    newContent = token.content.replace(/"/g, '');
+  }
+  if (token.content.includes("'")) {
+    newContent = token.content.replace(/'/g, '');
+  }
+  const words = newContent.split(' ');
+  words.forEach((word) => {
+    if (word.length === 64) {
+      finalContent = word;
+    }
+  });
+  if (finalContent) {
+    return { fileName: token.fileName, content: finalContent };
+  }
+  return token;
 };
