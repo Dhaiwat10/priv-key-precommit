@@ -38,7 +38,7 @@ export const getTokensFromFile = (file: string): Token[] => {
   const content = fs.readFileSync(file, 'utf8');
   const lines = content.split('\n');
   lines.forEach((line) => {
-    const matches = line.match(/\b[a-zA-Z]+\b/g);
+    const matches = line.split(' ');
     if (matches) {
       matches.forEach((match) =>
         tokens.push({ fileName: file, content: match })
