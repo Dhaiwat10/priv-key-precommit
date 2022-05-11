@@ -1,14 +1,10 @@
-import { ethers } from 'ethers';
+import secp256k1 from 'secp256k1';
 
 export const checkIfPrivKey = (str: string): boolean => {
   if (str.length === 64) {
     try {
-      const wallet = new ethers.Wallet(str);
-      if (wallet) {
-        return true;
-      } else {
-        return false;
-      }
+      secp256k1.privateKeyVerify(Buffer.from(str, 'hex'));
+      return true;
     } catch (error) {
       return false;
     }
